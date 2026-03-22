@@ -1,0 +1,6 @@
+pyshark
+pandas
+numpy
+matplotlib
+scikit-learn
+tabulate

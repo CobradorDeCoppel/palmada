@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Cálculo Manual: Descenso del Gradiente (Iteración 1)}
+\author{Proyecto Auquatrans}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Contexto y Valores Iniciales}
+Para esta iteración, seleccionamos el \textbf{Evento 1} del dataset normalizado, el cual corresponde a la clase ``Normal''. Por lo tanto, el valor real esperado es $y = 0$.
+
+El vector de características normalizado de entrada es $x = (b, p, t, d)$:
+\begin{align*}
+    x_1 (\text{Bytes/s}) &= -0.156511 \\
+    x_2 (\text{Paquetes/s}) &= -0.086408 \\
+    x_3 (\text{Temp}) &= -0.383548 \\
+    x_4 (\text{Duración}) &= 0.0
+\end{align*}
+
+Los pesos iniciales justificados y el sesgo ($b_0$) del modelo son:
+\begin{align*}
+    w &= [2.5, 2.5, 0.0, 0.0] \\
+    b_0 &= -2.0
+\end{align*}
+
+Definimos una tasa de aprendizaje (learning rate) estándar $\alpha = 0.1$ para controlar el tamaño del paso en la actualización.
+
+\section*{Paso 1: Cálculo de la Combinación Lineal ($z$)}
+Calculamos el producto punto entre el vector de pesos y el vector de entrada, sumando el sesgo:
+\begin{equation}
+    z = w \cdot x + b_0
+\end{equation}
+\begin{equation*}
+    z = (2.5)(-0.156511) + (2.5)(-0.086408) + (0)(-0.383548) + (0)(0) - 2.0
+\end{equation*}
+\begin{equation*}
+    z = -0.3912775 - 0.21602 - 0 - 0 - 2.0
+\end{equation*}
+\begin{equation*}
+    z = -2.6072975
+\end{equation*}
+
+\section*{Paso 2: Aplicación de la Función Sigmoide ($\hat{y}$)}
+Transformamos $z$ en una probabilidad utilizando la función sigmoide:
+\begin{equation}
+    \hat{y} = \sigma(z) = \frac{1}{1 + e^{-z}}
+\end{equation}
+\begin{equation*}
+    \hat{y} = \frac{1}{1 + e^{-(-2.6072975)}} = \frac{1}{1 + e^{2.6072975}}
+\end{equation*}
+\begin{equation*}
+    \hat{y} = \frac{1}{1 + 13.5623} = \frac{1}{14.5623} \approx 0.068670
+\end{equation*}
+
+\section*{Paso 3: Cálculo del Gradiente}
+El objetivo es minimizar la función de pérdida (entropía cruzada binaria). El gradiente de esta pérdida respecto a los pesos, para un solo ejemplo, se simplifica a la diferencia entre la predicción y el valor real, multiplicada por la entrada. 
+Calculamos el término de error:
+\begin{equation}
+    \text{Error} = (\hat{y} - y)
+\end{equation}
+\begin{equation*}
+    \text{Error} = 0.068670 - 0 = 0.068670
+\end{equation*}
+
+Ahora, calculamos el vector gradiente para los pesos $(\hat{y} - y)x$:
+\begin{align*}
+    \nabla w_1 &= (0.068670)(-0.156511) \approx -0.010747 \\
+    \nabla w_2 &= (0.068670)(-0.086408) \approx -0.005933 \\
+    \nabla w_3 &= (0.068670)(-0.383548) \approx -0.026338 \\
+    \nabla w_4 &= (0.068670)(0.0) = 0.0
+\end{align*}
+Y el gradiente para el sesgo (donde $x_0 = 1$):
+\begin{equation*}
+    \nabla b_0 = 0.068670
+\end{equation*}
+
+\section*{Paso 4: Actualización de los Pesos}
+Aplicamos la regla de actualización del Descenso del Gradiente restando el gradiente multiplicado por la tasa de aprendizaje ($\alpha$) a los pesos originales:
+\begin{equation}
+    w_{nuevo} = w_{viejo} - \alpha \cdot \nabla w
+\end{equation}
+
+\begin{align*}
+    w_{1(\text{nuevo})} &= 2.5 - (0.1)(-0.010747) = 2.5 + 0.001074 = 2.501074 \\
+    w_{2(\text{nuevo})} &= 2.5 - (0.1)(-0.005933) = 2.5 + 0.000593 = 2.500593 \\
+    w_{3(\text{nuevo})} &= 0.0 - (0.1)(-0.026338) = 0.0 + 0.002633 = 0.002633 \\
+    w_{4(\text{nuevo})} &= 0.0 - (0.1)(0.0) = 0.0 \\
+    b_{0(\text{nuevo})} &= -2.0 - (0.1)(0.068670) = -2.0 - 0.006867 = -2.006867
+\end{align*}
+
+\section*{Conclusión de la Iteración}
+Los pesos se han ajustado correctamente. Dado que el modelo predijo una probabilidad pequeña (0.068) para un evento que debía ser 0, el error fue bajo. En consecuencia, el gradiente propuso ajustes milimétricos, incrementando ligeramente la magnitud del sesgo negativo para que, en futuras evaluaciones de tráfico normal similar, la probabilidad se empuje aún más cerca de 0.
+
+\end{document}
