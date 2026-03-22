@@ -66,4 +66,4 @@ plt.grid(True, linestyle=":", alpha=0.6)
 
 # Guardar la gráfica para el anexo
 plt.savefig("grafica_distancias.png", dpi=300, bbox_inches="tight")
-print("\n¡Gráfica 'evidencias/grafica_distancias.png' generada con éxito para tus anexos!")
+print("\n¡Gráfica 'evidencias/04_grafica_distancias.png' generada con éxito para tus anexos!")

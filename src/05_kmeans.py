@@ -70,4 +70,4 @@ plt.grid(True, linestyle=":", alpha=0.6)
 
 plt.tight_layout()
 plt.savefig("grafica_kmeans_comparativa.png", dpi=300)
-print("\n¡Gráfica 'evidencias/grafica_kmeans_comparativa.png' generada con éxito!")
+print("\n¡Gráfica 'evidencias/05_grafica_kmeans_comparativa.png' generada con éxito!")

@@ -83,5 +83,5 @@ ax2.grid(True, linestyle=":", alpha=0.6)
 plt.tight_layout()
 plt.savefig("evidencia_visualizacion_avanzada.png", dpi=300)
 print(
-    "¡Visualización avanzada completada! Gráfica guardada como 'evidencias/evidencia_visualizacion_avanzada.png'."
+    "¡Visualización avanzada completada! Gráfica guardada como 'evidencias/08_evidencia_visualizacion_avanzada.png'."
 )
