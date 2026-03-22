@@ -2,14 +2,18 @@ import pyshark
 import pandas as pd
 import binascii
 import json
+import os
 
-ARCHIVO = "archivo.pcapng"
+
+CARPETA = os.path.dirname(os.path.realpath(__file__)) + "\\..\\data\\" #no se modifica
+ARCHIVO = "01_archivo.pcapng" # Solo nombre del archivo en la carpeta 'data'
 
 
 def generar_dataset():
-    print(f"Leyendo {ARCHIVO}... (esto puede tardar un minuto)")
-    captura = pyshark.FileCapture(ARCHIVO)
-
+    print(f"Leyendo {ARCHIVO} (esto puede tardar un minuto)...")
+    captura = pyshark.FileCapture(CARPETA + ARCHIVO)
+    
+    
     eventos = []
     tiempo_inicio = None
 
@@ -80,7 +84,7 @@ def generar_dataset():
     if len(df) < 30:
         print("¡Advertencia! Tienes menos de 30 eventos.")
 
-    df.to_csv("dataset_auquatrans.csv", index=False)
+    df.to_csv(CARPETA + "02_dataset_auquatrans.csv", index=False)
     print("\nPrimeras 5 filas del dataset generado:")
     print(df.head())
 

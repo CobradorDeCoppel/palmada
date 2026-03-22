@@ -1,12 +1,15 @@
 import pandas as pd
 import numpy as np
 from tabulate import tabulate
+import os
+
+CARPETA = os.path.dirname(os.path.realpath(__file__)) + "\\..\\data\\" #no se modifica
 
 # 1. Cargar el dataset normalizado
-df = pd.read_csv("dataset_normalizado.csv")
+df = pd.read_csv(CARPETA + "03_dataset_normalizado.csv")
 
 # Seleccionar 3 eventos específicos para entrenar (ej. 2 normales y 1 ataque)
-# Índices 0 y 1 suelen ser 'Normal', el índice 278 (en tu caso) era 'Ataque (nmap)'
+# Índices 0 y 1 suelen ser 'Normal', el índice 278 (en este caso) era 'Ataque (nmap)'
 eventos_idx = [0, 1, df[df["Escenario"] == "Ataque (nmap)"].index[0]]
 datos_entrenamiento = df.iloc[eventos_idx]
 
@@ -74,7 +77,7 @@ evolucion.append(
 
 # 4. Mostrar EVIDENCIA OBLIGATORIA
 df_evolucion = pd.DataFrame(evolucion)
-df_evolucion.to_csv("evidencia_evolucion_pesos.csv", index=False)
+df_evolucion.to_csv(CARPETA + "\\..\\evidencias\\" + "07_evidencia_evolucion_pesos.csv", index=False)
 
 print("--- EVIDENCIA: EVOLUCIÓN DE PESOS (3 ITERACIONES) ---")
-print(tabulate(df_evolucion, headers="keys", tablefmt="fancy_grid", showindex=False))
+print(tabulate(df_evolucion, headers="keys", tablefmt="pipe", showindex=False))

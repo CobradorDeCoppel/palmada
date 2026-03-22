@@ -1,9 +1,12 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+
+CARPETA = os.path.dirname(os.path.realpath(__file__)) + "\\..\\data\\" #no se modifica
 
 # 1. Cargar datos
-df = pd.read_csv("dataset_con_clusters.csv")  # Usamos el que ya tiene k-means
+df = pd.read_csv(CARPETA + "05_dataset_con_clusters.csv")  # Usamos el que ya tiene k-means
 X_cols = ["Bytes/s", "Paquetes/s", "Temp", "Duración"]
 X = df[X_cols].values
 
@@ -81,7 +84,7 @@ ax2.grid(True, linestyle=":", alpha=0.6)
 
 # Ajustar y guardar
 plt.tight_layout()
-plt.savefig("evidencia_visualizacion_avanzada.png", dpi=300)
+plt.savefig(CARPETA + "\\..\\evidencias\\" + "08_evidencia_visualizacion_avanzada.png", dpi=300)
 print(
-    "¡Visualización avanzada completada! Gráfica guardada como 'evidencias/08_evidencia_visualizacion_avanzada.png'."
+    "Gráfica guardada en 'evidencias/08_evidencia_visualizacion_avanzada.png'."
 )

@@ -1,9 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+import os
+
+CARPETA = os.path.dirname(os.path.realpath(__file__)) + "\\..\\data\\" #no se modifica
 
 # 1. Cargar los datos normalizados
-df = pd.read_csv("dataset_normalizado.csv")
+df = pd.read_csv(CARPETA + "03_dataset_normalizado.csv")
 columnas_vector = ["Bytes/s", "Paquetes/s", "Temp", "Duración"]
 X = df[columnas_vector]
 
@@ -18,7 +21,7 @@ df["Cluster_k3"] = kmeans3.fit_predict(X)
 centroides_k3 = kmeans3.cluster_centers_
 
 # Guardar la tabla con los clusters asignados
-df.to_csv("dataset_con_clusters.csv", index=False)
+df.to_csv(CARPETA + "05_dataset_con_clusters.csv", index=False)
 
 # Imprimir las evidencias obligatorias
 print("--- EVIDENCIA: CENTROIDES FINALES (k=2) ---")
@@ -69,5 +72,5 @@ plt.legend()
 plt.grid(True, linestyle=":", alpha=0.6)
 
 plt.tight_layout()
-plt.savefig("grafica_kmeans_comparativa.png", dpi=300)
+plt.savefig(CARPETA + "\\..\\evidencias\\" + "05_grafica_kmeans_comparativa.png", dpi=300)
 print("\n¡Gráfica 'evidencias/05_grafica_kmeans_comparativa.png' generada con éxito!")

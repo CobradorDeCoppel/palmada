@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
+CARPETA = os.path.dirname(os.path.realpath(__file__)) + "\\..\\data\\" #no se modifica
 # 1. Cargar los datos
-df_norm = pd.read_csv("dataset_normalizado.csv")
-df_orig = pd.read_csv("dataset_auquatrans.csv")
+
+df_orig = pd.read_csv(CARPETA + "02_dataset_auquatrans.csv")
+df_norm = pd.read_csv(CARPETA + "03_dataset_normalizado.csv")
 
 columnas_vector = ["Bytes/s", "Paquetes/s", "Temp", "Duración"]
 
@@ -25,8 +28,8 @@ df_orig["Distancia_al_Centroide"] = distancias
 
 print("--- EVIDENCIA 2: TABLA DE DISTANCIAS (Muestra) ---")
 print(df_orig[["Evento", "Escenario", "Distancia_al_Centroide"]].head(10))
-df_orig.to_csv(
-    "tabla_distancias_final.csv", index=False
+df_orig.to_csv(CARPETA + "..\\evidencias\\" +
+    "04_tabla_distancias_final.csv", index=False
 )  # Guardamos la evidencia completa
 
 # 4. Definir umbral de anomalía
@@ -65,5 +68,6 @@ plt.legend()
 plt.grid(True, linestyle=":", alpha=0.6)
 
 # Guardar la gráfica para el anexo
-plt.savefig("grafica_distancias.png", dpi=300, bbox_inches="tight")
-print("\n¡Gráfica 'evidencias/04_grafica_distancias.png' generada con éxito para tus anexos!")
+plt.savefig(CARPETA + "\\..\\evidencias\\" + "04_grafica_distancias.png", dpi=300, bbox_inches="tight")
+print("\n¡Tabla 'data/04_tabla_distancias_final.csv' generada!")
+print("\n¡Gráfica 'evidencias/04_grafica_distancias.png' generada!")
